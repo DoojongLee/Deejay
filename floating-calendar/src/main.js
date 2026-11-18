@@ -10,6 +10,7 @@ const {
   nativeImage,
   session,
   shell,
+  screen,
 } = require('electron');
 const path = require('path');
 const fs = require('fs');
@@ -64,12 +65,22 @@ let tray = null;
 // ---------------------------------------------------------------------------
 function createWindow() {
   const state = loadState();
+  const w = state.width || 380;
+  const h = state.height || 640;
+
+  // 첫 실행(저장된 위치 없음)이면 목업처럼 우측 상단에 배치
+  let { x, y } = state;
+  if (x == null || y == null) {
+    const area = screen.getPrimaryDisplay().workArea;
+    x = area.x + area.width - w - 24;
+    y = area.y + 24;
+  }
 
   win = new BrowserWindow({
-    width: state.width || 380,
-    height: state.height || 640,
-    x: state.x,
-    y: state.y,
+    width: w,
+    height: h,
+    x,
+    y,
     minWidth: 280,
     minHeight: 360,
     frame: false,
