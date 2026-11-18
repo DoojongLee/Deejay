@@ -1,0 +1,40 @@
+{
+  "name": "floating-calendar",
+  "version": "1.0.0",
+  "description": "항상 위에 떠있는 구글 캘린더 미니 창 (always-on-top Google Calendar viewer)",
+  "main": "src/main.js",
+  "scripts": {
+    "gen-icon": "node scripts/gen-icon.js",
+    "postinstall": "node scripts/gen-icon.js",
+    "prestart": "node scripts/gen-icon.js",
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.floating.calendar",
+    "productName": "Floating Calendar",
+    "files": [
+      "src/**/*",
+      "assets/**/*"
+    ],
+    "win": {
+      "target": "portable",
+      "icon": "assets/icon.png"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icon.png"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "assets/icon.png"
+    }
+  }
+}
